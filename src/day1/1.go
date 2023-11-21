@@ -16,7 +16,7 @@ func main() {
 
 func sum() int {
     calibration_values := 0 
-    data, err := os.Open("1_small_sample.txt")
+    data, err := os.Open("1_sample.txt")
     if err != nil {
         panic(err)
     }
@@ -27,7 +27,7 @@ func sum() int {
         start, end := 0, 0
         runeArr := []rune(line) 
         for j := 0; j < len(runeArr) ; j++ {
-            if int(runeArr[j]-'0') > 0 && int(runeArr[j]-'0') < 9 {
+            if int(runeArr[j]-'0') >= 0 && int(runeArr[j]-'0') <= 9 {
                 if i := int(runeArr[j]-'0') ; start == 0 {
                     start = i 
                     end = i
@@ -37,6 +37,7 @@ func sum() int {
             }
         }
         calibration_values += (start*10)+end
+        fmt.Println(calibration_values)
     }
     if err := scanner.Err(); err != nil {
         fmt.Fprintln(os.Stderr, "reading standard input:", err)
