@@ -27,6 +27,6 @@ func sum() int {
         fmt.Fprintln(os.Stderr, "reading standard input:", err)
     }
     
-    
+    fmt.Println("Hi")    
     return calibration_values;
 }
