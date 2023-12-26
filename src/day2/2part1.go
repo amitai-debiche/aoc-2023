@@ -35,7 +35,7 @@ func grabBag() int {
         colon_split := strings.Split(line, ":")
         
         bag_subset := strings.Split(colon_split[1], ";")
-
+// test
         for _, v := range bag_subset {
 
             picks := strings.Split(v, ",")
