@@ -16,9 +16,6 @@ func main() {
 
 
 func grabBag() int {
-    red := 12
-    green := 13
-    blue := 14
     total := 0
 
     file, err := os.Open("input1.txt")
@@ -30,13 +27,16 @@ func grabBag() int {
     scanner := bufio.NewScanner(file)
 
     for scanner.Scan() {
-        ignore_game := false
         line := scanner.Text()[5:]
         colon_split := strings.Split(line, ":")
         
         bag_subset := strings.Split(colon_split[1], ";")
-        for _, v := range bag_subset {
 
+        green_max := 0
+        blue_max := 0  
+        red_max := 0  
+        for _, v := range bag_subset {
+        
             picks := strings.Split(v, ",")
 
             for _, v := range picks {
@@ -44,27 +44,25 @@ func grabBag() int {
                 number_taken := stringtoI(elf_pick[1])
                 color := elf_pick[2]
 
-                if color == "green" && number_taken > green{
-                    ignore_game = true
+                if color == "green" && number_taken > green_max {
+                    green_max = number_taken
                 }
-                if color == "blue" && number_taken > blue{
-                    ignore_game = true
+                if color == "blue" && number_taken > blue_max {
+                    blue_max  = number_taken
                 }
-                if color == "red" && number_taken > red {
-                    ignore_game = true
+                if color == "red" && number_taken > red_max  {
+                    red_max  = number_taken
                 }
             }
         }
+        color_power := red_max * green_max * blue_max
         
-        if !ignore_game {
-            game_id := stringtoI(colon_split[0])
-            total += game_id
-        }
+        total += color_power 
 //        fmt.Println(bag_picks)
 
 
     }
-    return total    
+    return total 
 }
 
 func stringtoI(id string) int {
@@ -74,4 +72,4 @@ func stringtoI(id string) int {
     }
 
     return i
-}
+} 
